@@ -1,9 +1,6 @@
 require "money_tracking"
 require "money_tracking/cli/views"
-require "money_tracking/cli/list_command"
-require "money_tracking/cli/create_command"
-require "money_tracking/cli/update_command"
-require "money_tracking/cli/delete_command"
+require "money_tracking/cli/commands"
 
 require "thor"
 
