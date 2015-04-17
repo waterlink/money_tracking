@@ -32,20 +32,20 @@ module MoneyTracking
       desc "create AMOUNT CURRENCY TAGS", "Creates an expense"
       def create(amount, currency, *tags)
         `touch created_some`
-        puts "Created new expense with id 7dt0ibnv."
+        render Views::ExpenseCreated.new(id: "7dt0ibnv")
       end
 
       desc "update EXPENSE_ID", "Updates an expense"
       method_option :amount, type: :numeric
       def update(expense_id)
         `echo #{options.amount} > changed_amount`
-        puts "Updated expense #{expense_id}."
+        render Views::ExpenseUpdated.new(id: expense_id)
       end
 
       desc "delete EXPENSE_ID", "Deletes an expense"
       def delete(expense_id)
         `rm created_some`
-        puts "Deleted expense #{expense_id}."
+        render Views::ExpenseDeleted.new(id: expense_id)
       end
 
       private
