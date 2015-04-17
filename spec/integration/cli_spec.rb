@@ -1,6 +1,6 @@
 require "aruba_helper"
 
-RSpec.describe "Cli presentation layer" do
+RSpec.describe "Cli presentation layer", :slow do
   include ArubaHelper
 
   example "Basic example" do

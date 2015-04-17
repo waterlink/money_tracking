@@ -3,15 +3,28 @@ require "thor"
 
 module MoneyTracking
   class Cli < Thor
+    # Need to live here, since views want to be namespaced under Cli::Views
+    require "money_tracking/cli/views"
+
     class Expenses < Thor
       desc "list", "List all expenses"
       def list
         if File.exist?("created_some")
           amount = "73.90"
           amount = File.read("changed_amount").strip if File.exist?("changed_amount")
-          puts "7dt0ibnv - 17-04-2015 19:04:34: #{amount} euro [food]"
+          #puts "7dt0ibnv - 17-04-2015 19:04:34: #{amount} euro [food]"
+
+          render Views::ExpenseList.new(
+                   [{
+                      id: "7dt0ibnv",
+                      created_at: "17-04-2015 19:04:34",
+                      amount: amount,
+                      currency: "euro",
+                      tags: ["food"],
+                    }]
+                 )
         else
-          puts "Empty."
+          render Views::Empty.new
         end
       end
 
@@ -32,6 +45,12 @@ module MoneyTracking
       def delete(expense_id)
         `rm created_some`
         puts "Deleted expense #{expense_id}."
+      end
+
+      private
+
+      def render(view)
+        puts view.to_s
       end
     end
 
