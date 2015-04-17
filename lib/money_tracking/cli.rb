@@ -2,9 +2,10 @@ require "money_tracking"
 require "thor"
 
 module MoneyTracking
-  class Cli < Thor
+  module Cli
     # Need to live here, since views want to be namespaced under Cli::Views
     require "money_tracking/cli/views"
+    require "money_tracking/cli/list"
 
     class Expenses < Thor
       desc "list", "List all expenses"
@@ -55,7 +56,9 @@ module MoneyTracking
       end
     end
 
-    desc "expenses", "Work with expenses, use money help expenses to get list of subcommands"
-    subcommand "expenses", Expenses
+    class App < Thor
+      desc "expenses", "Work with expenses, use money help expenses to get list of subcommands"
+      subcommand "expenses", Expenses
+    end
   end
 end
