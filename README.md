@@ -21,7 +21,7 @@ Or install it yourself as:
 ## Usage
 
 ```
-$ money expenses
+$ money expenses list
 Empty.
 
 $ money expenses create 37.9 euro food
@@ -30,21 +30,21 @@ Created new expense with id 7dt0ibnv.
 $ money expenses create 25 euro internet landline
 Created new expense with id 2pa44pry.
 
-$ money expenses
+$ money expenses list
 2pa44pry - 2015-04-17 18:17:37: 25.00 euro [internet landline]
 7dt0ibnv - 2015-04-17 18:24:21: 37.90 euro [food]
 
 $ money expenses update 7dt0ibnv --amount 37.95
 Updated expense 7dt0ibnv.
 
-$ money expenses
+$ money expenses list
 2pa44pry - 2015-04-17 18:17:37: 25.00 euro [internet landline]
 7dt0ibnv - 2015-04-17 18:24:21: 37.95 euro [food]
 
 $ money expenses delete 2pa44pry
 Deleted expense 2pa44pry.
 
-$ money expenses
+$ money expenses list
 7dt0ibnv - 2015-04-17 18:24:21: 37.95 euro [food]
 ```
 
