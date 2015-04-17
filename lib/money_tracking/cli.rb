@@ -11,7 +11,7 @@ module MoneyTracking
     class Expenses < Thor
       desc "list", "List all expenses"
       def list
-        render ListCommand.new.call
+        render ListCommand.new(expense_finder).call
       end
 
       desc "create AMOUNT CURRENCY TAGS", "Creates an expense"
@@ -34,6 +34,10 @@ module MoneyTracking
 
       def expense_factory
         Domain::ExpenseFactory.new(store)
+      end
+
+      def expense_finder
+        Domain::ExpenseFinder.new(store, expense_factory)
       end
 
       def store

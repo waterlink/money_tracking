@@ -1,5 +1,5 @@
 MODELS = %w[
-  expense expense_factory
+  expense expense_factory expense_finder
 ]
 
 MODELS.each do |model|

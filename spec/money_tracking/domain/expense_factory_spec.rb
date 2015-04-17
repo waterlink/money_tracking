@@ -12,6 +12,7 @@ module MoneyTracking
                           } }
 
       let(:create_expense) { subject.create(raw_expense) }
+      let(:build_expense) { subject.build(raw_expense) }
 
       describe "#create" do
         it "creates an Expense" do
@@ -23,6 +24,17 @@ module MoneyTracking
             .to receive(:create)
                  .with(raw_expense)
           create_expense
+        end
+      end
+
+      describe "#build" do
+        it "builds and Expense" do
+          expect(build_expense).to be_a(Expense)
+        end
+
+        it "does not touch store" do
+          expect(store).not_to receive(:create)
+          build_expense
         end
       end
     end

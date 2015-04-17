@@ -5,25 +5,25 @@ module MoneyTracking
         subject(:view) {
           described_class.new(
             expenses,
-            expense_factory,
+            item_factory,
           )
         }
 
         let(:expenses) { [expense_a, expense_b, expense_c] }
-        let(:expense_factory) { class_double(ExpenseItem) }
+        let(:item_factory) { class_double(ExpenseItem) }
 
-        let(:expense_a) { double("Raw expense a") }
-        let(:expense_b) { double("Raw expense b") }
-        let(:expense_c) { double("Raw expense c") }
+        let(:expense_a) { instance_double(Domain::Expense) }
+        let(:expense_b) { instance_double(Domain::Expense) }
+        let(:expense_c) { instance_double(Domain::Expense) }
 
         let(:item_a) { double("Item expense a", to_s: "an item a") }
         let(:item_b) { double("Item expense b", to_s: "an item b") }
         let(:item_c) { double("Item expense c", to_s: "an item c") }
 
         before do
-          allow(expense_factory).to receive(:new).with(expense_a).and_return(item_a)
-          allow(expense_factory).to receive(:new).with(expense_b).and_return(item_b)
-          allow(expense_factory).to receive(:new).with(expense_c).and_return(item_c)
+          allow(expense_a).to receive(:build_view).with(item_factory).and_return(item_a)
+          allow(expense_b).to receive(:build_view).with(item_factory).and_return(item_b)
+          allow(expense_c).to receive(:build_view).with(item_factory).and_return(item_c)
         end
 
         it "renders proper list" do
