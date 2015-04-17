@@ -2,6 +2,8 @@ require "money_tracking"
 require "money_tracking/cli/views"
 require "money_tracking/cli/commands"
 
+require "money_tracking/dummy_store"
+
 require "thor"
 
 module MoneyTracking
@@ -14,7 +16,7 @@ module MoneyTracking
 
       desc "create AMOUNT CURRENCY TAGS", "Creates an expense"
       def create(amount, currency, *tags)
-        render CreateCommand.new(amount, currency, tags).call
+        render CreateCommand.new(expense_factory, amount, currency, tags).call
       end
 
       desc "update EXPENSE_ID", "Updates an expense"
@@ -29,6 +31,14 @@ module MoneyTracking
       end
 
       private
+
+      def expense_factory
+        Domain::ExpenseFactory.new(store)
+      end
+
+      def store
+        @_store ||= DummyStore.new
+      end
 
       def render(view)
         puts view.to_s

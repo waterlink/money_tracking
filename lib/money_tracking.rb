@@ -1,5 +1,5 @@
 require "money_tracking/version"
+require "money_tracking/domain"
 
 module MoneyTracking
-  # Your code goes here...
 end
