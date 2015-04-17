@@ -1,52 +1,34 @@
 require "money_tracking"
+require "money_tracking/cli/views"
+require "money_tracking/cli/list_command"
+require "money_tracking/cli/create_command"
+require "money_tracking/cli/update_command"
+require "money_tracking/cli/delete_command"
+
 require "thor"
 
 module MoneyTracking
   module Cli
-    # Need to live here, since views want to be namespaced under Cli::Views
-    require "money_tracking/cli/views"
-    require "money_tracking/cli/list"
-
     class Expenses < Thor
       desc "list", "List all expenses"
       def list
-        if File.exist?("created_some")
-          amount = "73.90"
-          amount = File.read("changed_amount").strip if File.exist?("changed_amount")
-          #puts "7dt0ibnv - 17-04-2015 19:04:34: #{amount} euro [food]"
-
-          render Views::ExpenseList.new(
-                   [{
-                      id: "7dt0ibnv",
-                      created_at: "17-04-2015 19:04:34",
-                      amount: amount,
-                      currency: "euro",
-                      tags: ["food"],
-                    }],
-                   Views::ExpenseItem,
-                 )
-        else
-          render Views::Empty.new
-        end
+        render ListCommand.new.call
       end
 
       desc "create AMOUNT CURRENCY TAGS", "Creates an expense"
       def create(amount, currency, *tags)
-        `touch created_some`
-        render Views::ExpenseCreated.new(id: "7dt0ibnv")
+        render CreateCommand.new(amount, currency, tags).call
       end
 
       desc "update EXPENSE_ID", "Updates an expense"
       method_option :amount, type: :numeric
       def update(expense_id)
-        `echo #{options.amount} > changed_amount`
-        render Views::ExpenseUpdated.new(id: expense_id)
+        render UpdateCommand.new(expense_id, options.amount, nil, nil).call
       end
 
       desc "delete EXPENSE_ID", "Deletes an expense"
       def delete(expense_id)
-        `rm created_some`
-        render Views::ExpenseDeleted.new(id: expense_id)
+        render DeleteCommand.new(expense_id).call
       end
 
       private

@@ -3,6 +3,12 @@ VIEWS = %w[
   expense_updated expense_deleted
 ]
 
-VIEWS.each do |view|
-  require "money_tracking/cli/views/#{view}"
+module MoneyTracking
+  module Cli
+    module Views
+      VIEWS.each do |view|
+        require "money_tracking/cli/views/#{view}"
+      end
+    end
+  end
 end
