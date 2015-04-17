@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+$:.unshift(File.expand_path(File.join(__FILE__, "..", "..", "lib")))
+require "money_tracking/cli"
+
+MoneyTracking::Cli.start(ARGV)
