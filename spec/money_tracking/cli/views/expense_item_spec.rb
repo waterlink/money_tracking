@@ -1,5 +1,3 @@
-require "money_tracking/cli"
-
 module MoneyTracking
   module Cli::Views
     RSpec.describe ExpenseItem do

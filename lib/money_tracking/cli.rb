@@ -21,7 +21,8 @@ module MoneyTracking
                       amount: amount,
                       currency: "euro",
                       tags: ["food"],
-                    }]
+                    }],
+                   Views::ExpenseItem,
                  )
         else
           render Views::Empty.new
