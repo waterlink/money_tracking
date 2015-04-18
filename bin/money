@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
 $:.unshift(File.expand_path(File.join(__FILE__, "..", "..", "lib")))
-require "money_tracking/cli"
+require "money_tracking/cli/runner"
 
-MoneyTracking::Cli::App.start(ARGV)
+MoneyTracking::Cli::Runner.new(ARGV).execute!

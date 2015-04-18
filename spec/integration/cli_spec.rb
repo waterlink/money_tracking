@@ -1,6 +1,6 @@
 require "aruba_helper"
 
-RSpec.describe "Cli presentation layer", :slow do
+RSpec.describe "Cli presentation layer" do
   include ArubaHelper
 
   example "Basic example" do
@@ -56,7 +56,7 @@ RSpec.describe "Cli presentation layer", :slow do
   end
 
   def money_command(*args)
-    "bundle exec money #{args.join(" ")}"
+    "money #{args.join(" ")}"
   end
 
   def output

@@ -1,5 +1,17 @@
-require 'aruba/api'
-require 'aruba/reporting'
+require "aruba/api"
+require "aruba/reporting"
+require "aruba/in_process"
+
+require "money_tracking/cli/runner"
+
+Aruba::InProcess.main_class = MoneyTracking::Cli::Runner
+Aruba.process = Aruba::InProcess
+
+class Aruba::InProcess
+  def output
+    @stdout.string + @stderr.string
+  end
+end
 
 module ArubaHelper
   include Aruba::Api
