@@ -33,24 +33,28 @@ RSpec.describe "Cli presentation layer" do
   end
 
   example "Not found on update" do
-    pending "Not implemented"
     money "expenses", "update", "hello_world", "--amount", "99.99", expected_exit_status: 1
     expect(output).to match("Not found.")
   end
 
   example "Not found on delete" do
-    pending "Not implemented"
     money "expenses", "delete", "hello_world", expected_exit_status: 1
     expect(output).to match("Not found.")
   end
 
-  example "Not updated on update"
+  example "Not updated on update" do
+    money "expenses", "create", "25", "euro", "internet"
+    id = output.scan(/[\d\w]{8}/)[0]
+
+    money "expenses", "update", id, expected_exit_status: 1
+    expect(output).to match("Not updated.")
+  end
 
   private
 
   def money(*args, expected_exit_status: 0)
     command = money_command(*args)
-    run_simple(command)
+    run_simple(command, false)
     @last_output = output_from(command)
     assert_exit_status(expected_exit_status)
   end

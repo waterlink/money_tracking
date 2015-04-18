@@ -7,6 +7,20 @@ require "thor"
 
 module MoneyTracking
   module Cli
+    class Error < StandardError
+      def initialize(view)
+        @view = view
+      end
+
+      def render
+        puts view.to_s
+      end
+
+      private
+
+      attr_reader :view
+    end
+
     class Expenses < Thor
       desc "list", "List all expenses"
       def list

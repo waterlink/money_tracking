@@ -31,15 +31,23 @@ module MoneyTracking
         setup_streams
         yield
         0
+
+      rescue Cli::Error => e
+        e.render
+        1
+
       rescue StandardError => e
         b = e.backtrace
         stderr.puts("#{b.shift}: #{e.message} (#{e.class})")
         stderr.puts(b.map{|s| "\tfrom #{s}"}.join("\n"))
         1
+
       rescue SystemExit => e
         e.status
+
       ensure
         reset_streams
+
       end
     end
   end
