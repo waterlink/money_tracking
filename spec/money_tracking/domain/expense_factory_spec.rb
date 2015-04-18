@@ -36,6 +36,10 @@ module MoneyTracking
           expect(store).not_to receive(:create)
           build_expense
         end
+
+        it "builds an ExpenseNotFound if raw_expense is nil" do
+          expect(subject.build(nil)).to be_a(ExpenseNotFound)
+        end
       end
     end
   end

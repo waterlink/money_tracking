@@ -5,6 +5,16 @@ class DummyStore
     "7dt0ibnv"
   end
 
+  def read(id)
+    {
+      id: id,
+      created_at: "17-04-2015 19:04:34",
+      amount: "99.89",
+      currency: "euro",
+      tags: ["food"],
+    }
+  end
+
   def list
     return [] unless File.exist?("created_some")
     amount = "73.90"
@@ -16,5 +26,9 @@ class DummyStore
        currency: "euro",
        tags: ["food"],
      }]
+  end
+
+  def update(id, fields)
+    `echo #{fields[:amount]} > changed_amount`
   end
 end

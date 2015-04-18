@@ -27,8 +27,30 @@ module MoneyTracking
         end
       end
 
-      describe "#build_view" do
+      describe "#update" do
+        let(:fields) { super().merge(id: "qp5g0x0h") }
+        let(:new_fields) { {
+                             id: "qp5g0x0h",
+                             amount: 49.99,
+                             currency: "euro",
+                             tags: ["food", "dinner", "pricey"]
+                           } }
+        let(:update_fields) { {
+                                amount: 49.99,
+                                currency: "euro",
+                                add_tags: ["dinner", "pricey"],
+                                rm_tags: ["burgers"],
+                              } }
 
+        it "adjusts its fields and sends them to store" do
+          expect(store)
+            .to receive(:update)
+                 .with("qp5g0x0h", new_fields)
+          expect(subject.update(update_fields)).to be(subject)
+        end
+      end
+
+      describe "#build_view" do
         context "when it is a new record" do
           before do
             allow(view_factory)
@@ -69,6 +91,18 @@ module MoneyTracking
           it "returns created view" do
             expect(expense.build_view(view_factory)).to be(view)
           end
+        end
+      end
+    end
+
+    RSpec.describe ExpenseNotFound do
+      describe "#build_view" do
+        let(:view_factory) { double("View factory", not_found: not_found_factory) }
+        let(:not_found_factory) { double("Not found factory", new: not_found_view) }
+        let(:not_found_view) { double("Not found view") }
+
+        it "builds not found view analogue" do
+          expect(subject.build_view(view_factory)).to be(not_found_view)
         end
       end
     end

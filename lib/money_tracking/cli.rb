@@ -22,7 +22,7 @@ module MoneyTracking
       desc "update EXPENSE_ID", "Updates an expense"
       method_option :amount, type: :numeric
       def update(expense_id)
-        render UpdateCommand.new(expense_id, options.amount, nil, nil).call
+        render UpdateCommand.new(expense_finder, expense_id, options.amount).call
       end
 
       desc "delete EXPENSE_ID", "Deletes an expense"

@@ -39,6 +39,21 @@ module MoneyTracking
           end
         end
       end
+
+      describe "#read" do
+        let(:id) { "yvrz7h2r" }
+        let(:raw_expense) { double("raw expense") }
+        let(:expense) { instance_double(Expense) }
+
+        before do
+          allow(store).to receive(:read).with(id).and_return(raw_expense)
+          allow(expense_factory).to receive(:build).with(raw_expense).and_return(expense)
+        end
+
+        it "delegates to store.read and builds expense from result" do
+          expect(subject.read(id)).to be(expense)
+        end
+      end
     end
   end
 end

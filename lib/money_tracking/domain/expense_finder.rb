@@ -4,6 +4,10 @@ module MoneyTracking
       def list
         store.list.map { |raw| expense_factory.build(raw) }
       end
+
+      def read(expense_id)
+        expense_factory.build(store.read(expense_id))
+      end
     end
   end
 end

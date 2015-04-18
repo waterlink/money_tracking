@@ -6,6 +6,7 @@ module MoneyTracking
       end
 
       def build(raw_expense)
+        return ExpenseNotFound.new unless raw_expense
         Expense.new(store, raw_expense)
       end
     end

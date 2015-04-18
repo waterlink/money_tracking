@@ -10,7 +10,7 @@ RSpec.describe "Cli presentation layer", :slow do
     money "expenses", "create", "73.9", "euro", "food"
     expect(output).to match(%r{Created new expense with id ([\d\w]{8}).})
     
-    id = output.scan(/[\d\w]{8}/)
+    id = output.scan(/[\d\w]{8}/)[0]
 
     money "expenses", "list"
     expect(output).to match(
@@ -31,6 +31,20 @@ RSpec.describe "Cli presentation layer", :slow do
     money "expenses list"
     expect(output).to match("Empty.")
   end
+
+  example "Not found on update" do
+    pending "Not implemented"
+    money "expenses", "update", "hello_world", "--amount", "99.99", expected_exit_status: 1
+    expect(output).to match("Not found.")
+  end
+
+  example "Not found on delete" do
+    pending "Not implemented"
+    money "expenses", "delete", "hello_world", expected_exit_status: 1
+    expect(output).to match("Not found.")
+  end
+
+  example "Not updated on update"
 
   private
 

@@ -1,13 +1,13 @@
 module MoneyTracking
   module Cli
     module Views
-      class ExpenseUpdated < Struct.new(:expense)
+      class ExpenseNotUpdated < Struct.new(:expense)
         def self.not_found
-          ExpenseNotFound
+          self
         end
 
         def to_s
-          "Updated expense #{expense[:id]}."
+          "Not updated."
         end
       end
     end
