@@ -7,9 +7,10 @@ require "money_tracking/cli/runner"
 Aruba::InProcess.main_class = MoneyTracking::Cli::Runner
 Aruba.process = Aruba::InProcess
 
+# https://github.com/cucumber/aruba/issues/236
 class Aruba::InProcess
   def output
-    @stdout.string + @stderr.string
+    stdout + stderr
   end
 end
 
