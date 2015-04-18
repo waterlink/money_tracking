@@ -5,7 +5,7 @@ module MoneyTracking
 
       let(:view_factory) { double("ViewFactory") }
       let(:view) { double("View") }
-      let(:store) { instance_double(DummyStore, create: "7dt0ibnv") }
+      let(:store) { instance_double(DataStore::Protocol, create: "7dt0ibnv") }
       let(:fields) { {
                        amount: 39.99,
                        currency: "dollar",

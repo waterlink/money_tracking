@@ -3,7 +3,7 @@ module MoneyTracking
     RSpec.describe ExpenseFinder do
       subject(:finder) { described_class.new(store, expense_factory) }
 
-      let(:store) { instance_double(DummyStore) }
+      let(:store) { instance_double(DataStore::Protocol) }
       let(:expense_factory) { instance_double(ExpenseFactory) }
 
       let(:raw_expenses) { [raw_a, raw_b, raw_c] }

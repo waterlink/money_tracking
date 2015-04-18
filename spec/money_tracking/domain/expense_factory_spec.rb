@@ -3,7 +3,7 @@ module MoneyTracking
     RSpec.describe ExpenseFactory do
       subject(:factory) { described_class.new(store) }
 
-      let(:store) { double("Store", create: nil) }
+      let(:store) { instance_double(DataStore::Protocol, create: nil) }
 
       let(:raw_expense) { {
                             amount: 44.99,
