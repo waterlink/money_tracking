@@ -1,13 +1,26 @@
 require "money_tracking"
 require "money_tracking/cli/views"
 require "money_tracking/cli/commands"
-
-require "money_tracking/dummy_store"
+require "money_tracking/data_store/file_store"
 
 require "thor"
 
 module MoneyTracking
   module Cli
+    class Error < StandardError
+      def initialize(view)
+        @view = view
+      end
+
+      def render
+        puts view.to_s
+      end
+
+      private
+
+      attr_reader :view
+    end
+
     class Expenses < Thor
       desc "list", "List all expenses"
       def list
@@ -41,7 +54,15 @@ module MoneyTracking
       end
 
       def store
-        @_store ||= DummyStore.new
+        @_store ||= DataStore::FileStore.new(file_store_dir)
+      end
+
+      def file_store_dir
+        "#{user_home}/.money/expenses"
+      end
+
+      def user_home
+        ENV.fetch("TEST_HOME", ENV["HOME"])
       end
 
       def render(view)

@@ -5,8 +5,9 @@ module MoneyTracking
         build(raw_expense).create
       end
 
-      def build(raw_expense)
+      def build(raw_expense, id = nil)
         return ExpenseNotFound.new unless raw_expense
+        return build(raw_expense.merge(id: id)) if id
         Expense.new(store, raw_expense)
       end
     end

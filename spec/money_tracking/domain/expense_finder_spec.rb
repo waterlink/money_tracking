@@ -3,7 +3,7 @@ module MoneyTracking
     RSpec.describe ExpenseFinder do
       subject(:finder) { described_class.new(store, expense_factory) }
 
-      let(:store) { instance_double(DummyStore) }
+      let(:store) { instance_double(DataStore::Protocol) }
       let(:expense_factory) { instance_double(ExpenseFactory) }
 
       let(:raw_expenses) { [raw_a, raw_b, raw_c] }
@@ -47,7 +47,7 @@ module MoneyTracking
 
         before do
           allow(store).to receive(:read).with(id).and_return(raw_expense)
-          allow(expense_factory).to receive(:build).with(raw_expense).and_return(expense)
+          allow(expense_factory).to receive(:build).with(raw_expense, id).and_return(expense)
         end
 
         it "delegates to store.read and builds expense from result" do

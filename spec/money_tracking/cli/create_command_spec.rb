@@ -1,9 +1,8 @@
 module MoneyTracking
   module Cli
     RSpec.describe CreateCommand do
-      subject { described_class.new(expense_factory, store, "79.5", "euro", ["food", "other"]) }
+      subject { described_class.new(expense_factory, "79.5", "euro", ["food", "other"]) }
 
-      let(:store) { instance_double(DummyStore) }
       let(:expense_factory) { instance_double(Domain::ExpenseFactory) }
       let(:expense) { instance_double(Domain::Expense, build_view: nil) }
       let(:view) { instance_double(Views::ExpenseCreated) }

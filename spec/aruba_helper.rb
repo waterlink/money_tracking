@@ -14,6 +14,8 @@ class Aruba::InProcess
   end
 end
 
+ENV["TEST_HOME"] ||= "#{Dir.getwd}/tmp/aruba/"
+
 module ArubaHelper
   include Aruba::Api
 
