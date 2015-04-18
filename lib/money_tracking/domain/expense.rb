@@ -21,6 +21,11 @@ module MoneyTracking
         self
       end
 
+      def delete
+        store.delete(id)
+        self
+      end
+
       def build_view(view_factory)
         view_factory.new(raw)
       end
@@ -71,6 +76,10 @@ module MoneyTracking
       end
 
       def update(updated_fields)
+        self
+      end
+
+      def delete
         self
       end
     end

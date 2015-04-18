@@ -46,7 +46,18 @@ module MoneyTracking
           expect(store)
             .to receive(:update)
                  .with("qp5g0x0h", new_fields)
-          expect(subject.update(update_fields)).to be(subject)
+          expect(expense.update(update_fields)).to be(expense)
+        end
+      end
+
+      describe "#delete" do
+        let(:fields) { super().merge(id: "qp5g0x0h") }
+
+        it "asks store to delete the record" do
+          expect(store)
+            .to receive(:delete)
+                 .with("qp5g0x0h")
+          expect(expense.delete).to be(expense)
         end
       end
 

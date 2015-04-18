@@ -27,7 +27,7 @@ module MoneyTracking
 
       desc "delete EXPENSE_ID", "Deletes an expense"
       def delete(expense_id)
-        render DeleteCommand.new(expense_id).call
+        render DeleteCommand.new(expense_finder, expense_id).call
       end
 
       private

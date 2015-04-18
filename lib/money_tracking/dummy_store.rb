@@ -31,4 +31,8 @@ class DummyStore
   def update(id, fields)
     `echo #{fields[:amount]} > changed_amount`
   end
+
+  def delete(id)
+    `rm created_some`
+  end
 end
