@@ -3,9 +3,4 @@
 $:.unshift(File.expand_path(File.join(__FILE__, "..", "..", "lib")))
 require "money_tracking/cli/runner"
 
-begin
-  MoneyTracking::Cli::Runner.new(ARGV).execute!
-rescue MoneyTracking::Cli::Error => e
-  e.render
-  exit 1
-end
+MoneyTracking::Cli::Runner.new(ARGV).execute!
