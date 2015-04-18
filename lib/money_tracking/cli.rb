@@ -34,8 +34,18 @@ module MoneyTracking
 
       desc "update EXPENSE_ID", "Updates an expense"
       method_option :amount, type: :numeric
+      method_option :currency
+      method_option :add_tags, type: :array
+      method_option :rm_tags, type: :array
       def update(expense_id)
-        render UpdateCommand.new(expense_finder, expense_id, options.amount).call
+        render UpdateCommand.new(
+                 expense_finder,
+                 expense_id,
+                 options.amount,
+                 options.currency,
+                 options.add_tags,
+                 options.rm_tags,
+               ).call
       end
 
       desc "delete EXPENSE_ID", "Deletes an expense"

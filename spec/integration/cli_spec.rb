@@ -50,6 +50,66 @@ RSpec.describe "Cli presentation layer" do
     expect(output).to match("Not updated.")
   end
 
+  describe "update functionality" do
+    let!(:id) do
+      money "expenses", "create", "75.39", "euro", "food", "italian"
+      output.scan(/[\d\w]{8}/)[0]
+    end
+
+    example "updating amount only" do
+      money "expenses", "update", id, "--amount", "74.99"
+      money "expenses", "list"
+      expect(output).to match(
+        %r{#{id} - ....-..-.. ..:..:..: 74\.99 euro \[food italian\]}
+      )
+    end
+
+    example "updating currency only" do
+      money "expenses", "update", id, "--currency", "eur"
+      money "expenses", "list"
+      expect(output).to match(
+        %r{#{id} - ....-..-.. ..:..:..: 75\.39 eur \[food italian\]}
+      )
+    end
+
+    example "adding tags only" do
+      money "expenses", "update", id, "--add-tags", "tasty", "pricey"
+      money "expenses", "list"
+      expect(output).to match(
+        %r{#{id} - ....-..-.. ..:..:..: 75\.39 euro \[food italian pricey tasty\]}
+      )
+    end
+
+    example "removing tags only" do
+      money "expenses", "update", id, "--rm-tags", "food"
+      money "expenses", "list"
+      expect(output).to match(
+        %r{#{id} - ....-..-.. ..:..:..: 75\.39 euro \[italian\]}
+      )
+    end
+
+    example "removing and adding tags only" do
+      money "expenses", "update", id, "--rm-tags", "food", "--add-tags", "restaurant", "awesome"
+      money "expenses", "list"
+      expect(output).to match(
+        %r{#{id} - ....-..-.. ..:..:..: 75\.39 euro \[awesome italian restaurant\]}
+      )
+    end
+
+    example "updating all fields at once" do
+      money "expenses", "update", id,
+            "--rm-tags", "food",
+            "--amount", "95.49",
+            "--currency=dollar",
+            "--add-tags", "restaurant", "awesome"
+
+      money "expenses", "list"
+      expect(output).to match(
+        %r{#{id} - ....-..-.. ..:..:..: 95\.49 dollar \[awesome italian restaurant\]}
+      )
+    end
+  end
+
   private
 
   def money(*args, expected_exit_status: 0)
