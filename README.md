@@ -48,6 +48,10 @@ $ money expenses list
 7dt0ibnv - 2015-04-17 18:24:21: 37.95 euro [food]
 ```
 
+## TODO
+
+- [ ] Validations for `Expense` domain model and appropriate views for rendering validation error(s).
+
 ## Contributing
 
 1. Fork it ( https://github.com/waterlink/money_tracking/fork )
