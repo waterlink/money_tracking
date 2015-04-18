@@ -1,6 +1,6 @@
 module MoneyTracking
   module Cli
-    class CreateCommand < Struct.new(:expense_factory, :store, :amount, :currency, :tags)
+    class CreateCommand < Struct.new(:expense_factory, :amount, :currency, :tags)
       def call
         expense_factory
           .create(raw_expense)
