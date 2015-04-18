@@ -48,7 +48,7 @@ module MoneyTracking
 
         def load(id)
           @id = id
-          self.fields = YAML.load_file(filename)
+          self.fields = YAML.load_file(filename).merge(id: id)
           self
         end
 

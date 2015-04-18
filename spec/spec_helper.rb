@@ -1,3 +1,6 @@
+require "timecop"
+Timecop.safe_mode = true
+
 require "money_tracking"
 require "money_tracking/cli"
 

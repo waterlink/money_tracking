@@ -6,7 +6,7 @@ module MoneyTracking
       end
 
       def read(expense_id)
-        expense_factory.build(store.read(expense_id))
+        expense_factory.build(store.read(expense_id), expense_id)
       end
     end
   end

@@ -10,6 +10,7 @@ module MoneyTracking
       end
 
       def create
+        set_created_at
         @id = store.create(raw)
         self
       end
@@ -37,6 +38,10 @@ module MoneyTracking
       def raw
         return fields unless id
         fields.merge(id: id)
+      end
+
+      def set_created_at
+        fields[:created_at] ||= Time.now
       end
 
       def simple_update(updated_fields)

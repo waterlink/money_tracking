@@ -47,7 +47,7 @@ module MoneyTracking
 
         before do
           allow(store).to receive(:read).with(id).and_return(raw_expense)
-          allow(expense_factory).to receive(:build).with(raw_expense).and_return(expense)
+          allow(expense_factory).to receive(:build).with(raw_expense, id).and_return(expense)
         end
 
         it "delegates to store.read and builds expense from result" do

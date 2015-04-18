@@ -14,12 +14,16 @@ module MoneyTracking
 
       let(:raw_expense) { fields.merge(id: "7dt0ibnv") }
 
+      let(:fixed_time) { Time.now }
+
       describe "#create" do
-        it "delegates to store" do
-          expect(store)
-            .to receive(:create)
-                 .with(fields)
-          expense.create
+        it "delegates to store with :created_at field = Time.now" do
+          Timecop.freeze(fixed_time) do
+            expect(store)
+              .to receive(:create)
+                   .with(fields.merge(created_at: fixed_time))
+            expense.create
+          end
         end
 
         it "returns itself" do

@@ -13,6 +13,9 @@ module MoneyTracking
 
       let(:create_expense) { subject.create(raw_expense) }
       let(:build_expense) { subject.build(raw_expense) }
+      let(:build_expense_with_id) { subject.build(raw_expense, id) }
+
+      let(:id) { "mg7ai6a4" }
 
       describe "#create" do
         it "creates an Expense" do
@@ -39,6 +42,15 @@ module MoneyTracking
 
         it "builds an ExpenseNotFound if raw_expense is nil" do
           expect(subject.build(nil)).to be_a(ExpenseNotFound)
+        end
+
+        it "builds expense with id if id is provided" do
+          an_expense = instance_double(Expense)
+          expect(Expense)
+            .to receive(:new)
+                 .with(store, raw_expense.merge(id: id))
+                 .and_return(an_expense)
+          expect(build_expense_with_id).to be(an_expense)
         end
       end
     end

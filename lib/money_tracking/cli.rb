@@ -1,8 +1,7 @@
 require "money_tracking"
 require "money_tracking/cli/views"
 require "money_tracking/cli/commands"
-
-require "money_tracking/dummy_store"
+require "money_tracking/data_store/file_store"
 
 require "thor"
 
@@ -41,7 +40,15 @@ module MoneyTracking
       end
 
       def store
-        @_store ||= DummyStore.new
+        @_store ||= DataStore::FileStore.new(file_store_dir)
+      end
+
+      def file_store_dir
+        "#{user_home}/.money/expenses"
+      end
+
+      def user_home
+        ENV.fetch("TEST_HOME", ENV["HOME"])
       end
 
       def render(view)

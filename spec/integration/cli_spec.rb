@@ -14,7 +14,7 @@ RSpec.describe "Cli presentation layer" do
 
     money "expenses", "list"
     expect(output).to match(
-      %r{#{id} - ..-..-.... ..:..:..: 73\.90 euro \[food\]}
+      %r{#{id} - ....-..-.. ..:..:..: 73\.90 euro \[food\]}
     )
 
     money "expenses", "update", id, "--amount", "73.95"
@@ -22,7 +22,7 @@ RSpec.describe "Cli presentation layer" do
 
     money "expenses", "list"
     expect(output).to match(
-      %r{#{id} - ..-..-.... ..:..:..: 73\.95 euro \[food\]}
+      %r{#{id} - ....-..-.. ..:..:..: 73\.95 euro \[food\]}
     )
 
     money "expenses", "delete", id
