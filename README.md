@@ -1,4 +1,4 @@
-# MoneyTracking
+# MoneyTracking [![Gem version](https://img.shields.io/gem/v/money_tracking.svg)](https://rubygems.org/gems/money_tracking) [![Build Status](https://travis-ci.org/waterlink/money_tracking.svg?branch=master)](https://travis-ci.org/waterlink/money_tracking) [![Join the chat at https://gitter.im/waterlink/money_tracking](https://img.shields.io/badge/gitter-join%20chat-brightgreen.svg)](https://gitter.im/waterlink/money_tracking)
 
 CLI tool for tracking your expenses.
 
